@@ -1,5 +1,4 @@
-%%  Generate N samples of a real Gaussian random variable (RV) X with
-zero mean and unit variance, that is X ∼ N(0; 1) %%
+%%  Generate N samples of a real Gaussian random variable (RV) X with zero mean and unit variance, that is X ∼ N(0; 1) %%
 
 clc 
 clear all 
