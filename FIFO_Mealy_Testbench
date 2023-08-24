@@ -1,0 +1,60 @@
+// Code your testbench here
+// or browse Examples
+
+
+module test_mealyfsm;
+
+  //input
+  reg in;
+  reg clk;
+  reg rst;
+  
+  //output
+  wire out;
+  
+  // instantiation the unit under test (UTT)
+  mealyfsm uut (
+    .in(in),
+    .clk(clk),
+    .rst(rst),
+    .out(out)
+  );
+   
+ 
+  initial begin
+    //initialize inputs
+    in = 0;
+    clk = 0;
+    rst = 0;
+    
+    //wait 10ns for global reset to finish
+    #10;
+    
+    rst = 1;
+    #10;
+    
+    rst = 0;
+    #10;
+     
+    in = 1;
+    #10;
+    
+    in = 0;
+    #10;
+    
+    in = 1;
+    #10;
+    
+    $finish; // End simulation
+  end
+  
+  always #5 clk = ~clk;
+   //waveform generation
+  initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars(1,test_mealyfsm);
+  end
+ 
+  
+endmodule
+
