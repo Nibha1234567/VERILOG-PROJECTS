@@ -34,6 +34,7 @@ module test_mealyfsm;
     #10;
     
     rst = 0;
+    in = 0;
     #10;
      
     in = 1;
