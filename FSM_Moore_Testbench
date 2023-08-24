@@ -1,0 +1,62 @@
+// Code your testbench here
+// or browse Examples
+module test_moorefsm;
+
+  //input
+  reg in;
+  reg clk;
+  reg rst;
+  
+  //output
+  wire out;
+  
+  // instantiation the unit under test (UTT)
+  moorefsm uut (
+    .in(in),
+    .clk(clk),
+    .rst(rst),
+    .out(out)
+  );
+   
+ 
+  initial begin
+    //initialize inputs
+    in = 0;
+    clk = 0;
+    rst = 0;
+    
+    //wait 10ns for global reset to finish
+    #10;
+    
+    rst = 1;
+    #10;
+    
+    rst = 0;
+    in = 0;
+    #50;
+     
+    in = 1;
+    #20;
+    
+    in = 0;
+    #20;
+    
+    in = 1;
+    #20;
+    
+    in = 0;
+    #50;
+    
+    $finish; // End simulation
+  end
+  
+  always #10 clk = ~clk;
+   //waveform generation
+  initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars(1,test_moorefsm);
+  end
+ 
+  
+endmodule
+
