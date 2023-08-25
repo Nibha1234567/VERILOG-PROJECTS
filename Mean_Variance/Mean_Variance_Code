@@ -1,0 +1,31 @@
+%%  Generate N samples of a real Gaussian random variable (RV) X with zero mean and unit variance, that is X ∼ N(0; 1) %%
+
+clc 
+clear all 
+close all 
+N = 10.^[0,1:6]; %initialization 
+limit = length(N); 
+samplemean = zeros(1,limit); 
+abs_samplemean = zeros(1,limit); 
+samplevariance = zeros(1,limit); 
+for i=1:limit 
+samplemean(i) = mean(randn(1,N(i))); 
+abs_samplemean(i) = abs(mean(randn(1,N(i)))); 
+samplevariance(i) = var(randn(1,N(i))); 
+end 
+figure 
+subplot(2,2,1); 
+semilogx(N,samplemean); 
+title('MEAN') 
+xlabel('no.of n'); 
+ylabel('sample mean'); 
+subplot(2,2,2); 
+semilogx(N,samplevariance,'r'); 
+title('VARIANCE') 
+xlabel('no.of n'); 
+ylabel('sample variance'); 
+subplot(2,2,3); 
+semilogx(N,abs_samplemean,'g'); 
+title('ABSOLUTE MEAN') 
+xlabel('no.of n'); 
+ylabel('absolute sample mean'); 
