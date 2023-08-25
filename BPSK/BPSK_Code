@@ -1,0 +1,58 @@
+%%  To plot the probability of error (pe) as a function of SNR for BPSK Modulation Scheme %%
+
+close all;
+clc;
+%% initialization
+snr_db=-5:1:15;    % define SNR
+num_snr_db=length(snr_db);
+num_sim=10e5;   % no. of simulation
+A=1;
+
+%% pe of BPSK using analytical expression
+
+pe_analytical=zeros(1,num_snr_db);
+
+for i=1:num_snr_db
+    snr_lin=10^(0.1*snr_db(i));
+    pe_analytical(i)=qfunc(sqrt(snr_lin));
+end
+semilogy(snr_db,pe_analytical,'pentagram-');
+ title('snr vs prob of error');
+ xlabel('snr in db');
+ ylabel('Prob of error');
+ hold on
+
+%% pe of BPSK using monte carlo simulation
+
+num_sim=10e5;
+snr_db = -5:1:15;
+pe_simulation = zeros(1,length(snr_db));
+A=1;
+for  j=1:length (snr_db)
+    snr_lin = 10^(0.1*snr_db(j));
+    count=0;
+
+    for k=1:1:num_sim
+        n=(1/sqrt(snr_lin))*randn(1);     % randn=normally distributed random signal
+
+        if rand>0.5
+            sm=A;
+        else
+            sm=-A;
+        end
+        r=sm+n;
+
+        if r>0
+            shat=A;
+        else
+            shat=-A;
+        end
+        if (shat~=sm)
+            count=count+1;
+        end
+    end 
+    pe_simulation(j) = count/num_sim;
+end
+semilogy(snr_db,pe_simulation,'--diamond')
+
+legend('pe_analytical','pe_simulation'); 
